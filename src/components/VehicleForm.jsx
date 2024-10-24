@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function ComponentForm() {
-    const [licensePlate, setLicensePlate] = useState("");
     const [model, setModel] = useState("");
-    const [owner, setOwner] = useState("");
+    const [company, setCompany] = useState("");
 
     const [components, setComponents] = useState([]);
     const fetchComponents = () => {
@@ -21,9 +20,8 @@ function ComponentForm() {
         e.preventDefault();
         axios
             .post("http://localhost:8000/api/vehicles/", {
-                license_plate: licensePlate,
-                model: model,
-                owner: owner
+                model,
+                company
             })
             .then(fetchComponents)
             .catch((error) => console.error(error));
@@ -36,14 +34,6 @@ function ComponentForm() {
                 style={{ display: "flex", flexDirection: "column", gap: 10 }}
                 onSubmit={handleSubmit}
             >
-                <label htmlFor="licensePlate">License plate</label>
-                <input
-                    type="text"
-                    id="licensePlate"
-                    placeholder="License plate"
-                    value={licensePlate}
-                    onChange={(e) => setLicensePlate(e.target.value)}
-                />
 
                 <label htmlFor="model">Model name</label>
                 <input
@@ -54,13 +44,13 @@ function ComponentForm() {
                     onChange={(e) => setModel(e.target.value)}
                 />
 
-                <label htmlFor="owner">Owner</label>
+                <label htmlFor="company">Company</label>
                 <input
                     type="text"
-                    id="owner"
-                    placeholder="Owner"
-                    value={owner}
-                    onChange={(e) => setOwner(e.target.value)}
+                    id="company"
+                    placeholder="company"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
                 />
 
                 <button type="submit">Add vehicle details</button>
